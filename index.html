@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BillBrain | AI Invoice Parser</title>
+    <meta name="description" content="Extract structured data from your invoices using AI">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <main class="container">
+        <!-- Header / Hero Section -->
+        <header class="hero">
+            <div class="logo-container">
+                <i class="ph-fill ph-receipt"></i>
+                <h1>BillBrain</h1>
+            </div>
+            <p class="subtitle">Extract structured JSON data from any invoice instantly using Google Vision & OpenAI.</p>
+        </header>
+
+        <!-- Main Upload Card -->
+        <section class="card upload-card" id="uploadCard">
+            <div class="upload-area" id="dropZone">
+                <input type="file" id="fileInput" accept="image/*, application/pdf" hidden>
+                
+                <div class="upload-icon-wrapper">
+                    <i class="ph ph-cloud-arrow-up"></i>
+                </div>
+                
+                <div class="upload-text">
+                    <h3>Drag & drop your invoice</h3>
+                    <p>or <button type="button" class="text-button" id="browseBtn">browse files</button></p>
+                </div>
+                
+                <div class="upload-limits">
+                    Supports JPG, PNG, PDF up to 10MB
+                </div>
+            </div>
+
+            <div class="file-preview hidden" id="filePreview">
+                <div class="file-info">
+                    <i class="ph-fill ph-file-text"></i>
+                    <div class="file-details">
+                        <span class="file-name" id="fileName">invoice.pdf</span>
+                        <span class="file-size" id="fileSize">2.4 MB</span>
+                    </div>
+                </div>
+                <button type="button" class="icon-button" id="removeFileBtn" title="Remove file">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+
+            <button type="button" class="btn primary-btn" id="extractBtn" disabled>
+                <i class="ph-bold ph-magic-wand"></i> Extract Data
+            </button>
+        </section>
+
+        <!-- Loading State -->
+        <section class="card loading-card hidden" id="loadingState">
+            <div class="loader-container">
+                <div class="spinner"></div>
+                <h3>Analyzing Document...</h3>
+                <p>Running OCR and extracting entities via AI.</p>
+            </div>
+            
+            <div class="skeleton-wrapper">
+                <div class="skeleton-line title"></div>
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line short"></div>
+            </div>
+        </section>
+
+        <!-- Results View -->
+        <section class="results-view hidden" id="resultsView">
+            <div class="results-header">
+                <h2>Extraction Complete</h2>
+                <button type="button" class="btn secondary-btn" id="newUploadBtn">
+                    <i class="ph ph-arrow-counter-clockwise"></i> Upload Another
+                </button>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <div class="summary-icon"><i class="ph ph-storefront"></i></div>
+                    <div class="summary-content">
+                        <span class="label">Vendor</span>
+                        <strong class="value" id="resVendor">-</strong>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon"><i class="ph ph-hash"></i></div>
+                    <div class="summary-content">
+                        <span class="label">Invoice No.</span>
+                        <strong class="value" id="resInvoiceNum">-</strong>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon"><i class="ph ph-calendar-blank"></i></div>
+                    <div class="summary-content">
+                        <span class="label">Date</span>
+                        <strong class="value" id="resDate">-</strong>
+                    </div>
+                </div>
+                <div class="summary-card highlight">
+                    <div class="summary-icon"><i class="ph ph-currency-dollar"></i></div>
+                    <div class="summary-content">
+                        <span class="label">Total Amount</span>
+                        <strong class="value" id="resTotal">-</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Line Items Table -->
+            <div class="card table-card">
+                <div class="table-header">
+                    <h3>Line Items</h3>
+                </div>
+                <div class="table-responsive">
+                    <table id="itemsTable">
+                        <thead>
+                            <tr>
+                                <th>Item Description</th>
+                                <th class="num-col">Qty</th>
+                                <th class="num-col">Rate</th>
+                                <th class="num-col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsTableBody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Raw JSON View (Optional toggle)-->
+            <div class="card json-card">
+                <div class="card-header-flex">
+                    <h3>Raw JSON Payload</h3>
+                    <button class="icon-button" id="copyJsonBtn" title="Copy JSON">
+                        <i class="ph ph-copy"></i>
+                    </button>
+                </div>
+                <pre><code id="jsonOutput"></code></pre>
+            </div>
+
+        </section>
+        
+        <!-- Toast Notification -->
+        <div class="toast" id="toast">Message goes here</div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
