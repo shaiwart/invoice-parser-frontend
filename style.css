@@ -471,9 +471,7 @@ body::-webkit-scrollbar-thumb {
 .summary-content .value {
     font-size: 1.125rem;
     font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    word-break: break-word; /* Allows long strings to wrap */
 }
 
 /* Highlight the total amount card */
