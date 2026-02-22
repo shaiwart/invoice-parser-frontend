@@ -167,6 +167,7 @@ async function processInvoice() {
 function populateResults(data) {
     // Update Summary Cards (handle missing data gracefully)
     document.getElementById('resVendor').textContent = data.vendor_name || 'Not Found';
+    document.getElementById('resBuyer').textContent = data.buyer_name || '-';
     document.getElementById('resInvoiceNum').textContent = data.invoice_number || '-';
     document.getElementById('resGstNum').textContent = data.gst_number || '-';
     document.getElementById('resDate').textContent = data.invoice_date || '-';

@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BillBrain | AI Invoice Parser</title>
     <meta name="description" content="Extract structured data from your invoices using AI">
-    
+
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="background-elements">
         <div class="blob blob-1"></div>
@@ -29,23 +31,24 @@
                 <i class="ph-fill ph-receipt"></i>
                 <h1>BillBrain</h1>
             </div>
-            <p class="subtitle">Extract structured JSON data from any invoice instantly using Google Vision & OpenAI.</p>
+            <p class="subtitle">Extract structured JSON data from any invoice instantly using Google Vision & OpenAI.
+            </p>
         </header>
 
         <!-- Main Upload Card -->
         <section class="card upload-card" id="uploadCard">
             <div class="upload-area" id="dropZone">
                 <input type="file" id="fileInput" accept="image/*, application/pdf" hidden>
-                
+
                 <div class="upload-icon-wrapper">
                     <i class="ph ph-cloud-arrow-up"></i>
                 </div>
-                
+
                 <div class="upload-text">
                     <h3>Drag & drop your invoice</h3>
                     <p>or <button type="button" class="text-button" id="browseBtn">browse files</button></p>
                 </div>
-                
+
                 <div class="upload-limits">
                     Supports JPG, PNG, PDF up to 10MB
                 </div>
@@ -76,7 +79,7 @@
                 <h3>Analyzing Document...</h3>
                 <p>Running OCR and extracting entities via AI.</p>
             </div>
-            
+
             <div class="skeleton-wrapper">
                 <div class="skeleton-line title"></div>
                 <div class="skeleton-line"></div>
@@ -100,6 +103,13 @@
                     <div class="summary-content">
                         <span class="label">Vendor</span>
                         <strong class="value" id="resVendor">-</strong>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon"><i class="ph ph-user"></i></div>
+                    <div class="summary-content">
+                        <span class="label">Buyer Name</span>
+                        <strong class="value" id="resBuyer">-</strong>
                     </div>
                 </div>
                 <div class="summary-card">
@@ -166,7 +176,7 @@
             </div>
 
         </section>
-        
+
         <!-- Toast Notification -->
         <div class="toast" id="toast">Message goes here</div>
 
@@ -174,4 +184,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
